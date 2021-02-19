@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     private var currentIndex = 0
+    private lateinit var questionTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,51 +28,40 @@ class MainActivity : AppCompatActivity() {
         val trueButton: Button = findViewById(R.id.true_button)
         val falseButton: Button = findViewById(R.id.false_button)
         val nextButton: Button = findViewById(R.id.next_button)
-        val questionTextView: TextView = findViewById(R.id.question_text_view)
-
-        // Question: Is it possible call checkAnswer sending the value chose and returning back the correct toast?
-        // (inserting the call in  R.string.correct_toast position)
-//        trueButton.setOnClickListener {
-//            Toast.makeText(this, R.string.correct_toast, Toast.LENGTH_SHORT).apply {
-//                setGravity(Gravity.TOP, 0, 0)
-//                show()
-//            }
-//        }
+        questionTextView = findViewById(R.id.question_text_view)
 
         trueButton.setOnClickListener {
             checkAnswer(true)
         }
 
         falseButton.setOnClickListener {
-            // it's the standard of functional programming.
             checkAnswer(false)
         }
 
         nextButton.setOnClickListener {
             currentIndex = (currentIndex + 1) % questionBank.size
-            updateQuestion(questionTextView)
+            updateQuestion()
         }
 
-        updateQuestion(questionTextView)
+        updateQuestion()
     }
 
-    private fun updateQuestion(questionTextView: TextView) {
-        val questionTextResId = questionBank[currentIndex].textResId
-        questionTextView.setText(questionTextResId) // how this line works?
-    }
-
-    // Question: could this method be called from true/falseButton.setOnClickListener?
     private fun checkAnswer(userAnswer: Boolean) {
-        val correctAnswer = questionBank[currentIndex].answer
-
-        // Question: is not possible to use ? operator?
-        val messageResId = if (userAnswer == correctAnswer) {
+        val messageResId = if (userAnswer == questionBank[currentIndex].answer) {
             R.string.correct_toast
         } else {
             R.string.incorrect_toast
         }
 
-        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).apply {
+            setGravity(Gravity.TOP, 0, 0)
+            show()
+        }
+    }
+
+    private fun updateQuestion() {
+        val questionTextResId = questionBank[currentIndex].textResId
+        questionTextView.setText(questionTextResId)
     }
 
 }
