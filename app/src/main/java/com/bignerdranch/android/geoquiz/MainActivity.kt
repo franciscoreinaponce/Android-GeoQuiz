@@ -1,9 +1,11 @@
 package com.bignerdranch.android.geoquiz
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,8 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         val trueButton: Button = findViewById(R.id.true_button)
         val falseButton: Button = findViewById(R.id.false_button)
-        val nextButton: Button = findViewById(R.id.next_button)
-        val prevButton: Button = findViewById(R.id.prev_button)
+        val nextButton: ImageButton = findViewById(R.id.next_button)
+        val prevButton: ImageButton = findViewById(R.id.prev_button)
         val textView: View = findViewById(R.id.question_text_view)
         questionTextView = findViewById(R.id.question_text_view)
 
