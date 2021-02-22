@@ -2,6 +2,7 @@ package com.bignerdranch.android.geoquiz
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val trueButton: Button = findViewById(R.id.true_button)
         val falseButton: Button = findViewById(R.id.false_button)
         val nextButton: Button = findViewById(R.id.next_button)
+        val prevButton: Button = findViewById(R.id.prev_button)
+        val textView: View = findViewById(R.id.question_text_view)
         questionTextView = findViewById(R.id.question_text_view)
 
         trueButton.setOnClickListener {
@@ -38,8 +41,21 @@ class MainActivity : AppCompatActivity() {
             checkAnswer(false)
         }
 
+        // Next question
         nextButton.setOnClickListener {
             currentIndex = (currentIndex + 1) % questionBank.size
+            updateQuestion()
+        }
+
+        // Next question
+        textView.setOnClickListener {
+            currentIndex = (currentIndex + 1) % questionBank.size
+            updateQuestion()
+        }
+
+        // Prev question
+        prevButton.setOnClickListener {
+            currentIndex = (currentIndex + questionBank.size - 1) % questionBank.size
             updateQuestion()
         }
 
